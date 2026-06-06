@@ -37,3 +37,9 @@ plt.axvspan('2020-04-01', '2020-10-01', color='red', alpha=0.2, label='COVID exc
 plt.legend()
 plt.tight_layout()
 plt.show()
+
+#Hamilton's recession dates based on GDP-indicator
+nber = fred.get_series('JHDUSRGDPBR')
+nber.index = pd.to_datetime(nber.index)
+nber.to_csv('data/nber.csv', header=True)
+print(nber.head(20))

@@ -42,3 +42,12 @@ Series: A191RL1Q225SBEA (FRED) — Real GDP, percentage change from preceding pe
 
 Reminder of the algorithm:
 Initial step - Our predicted expansion/recession probability row vector starts at [0.8, 0.2] (predicted prob), then we update following the observation using Bayes' rule: Prob of expansion/recession given all GDP data up to and including time t is density of GDP obs under expansion/recession times prob of expansion/recession using GDP data not including time t (predicted prob) over prob of observing y_t (i.e. the two entries summed to normalise in order to sum to 1). 
+
+We want to compare the predictive power vs. actual NBER announcement of recessions.
+
+Different data to use and approach:
+Advance release: 1 month after quarter ends
+Revised release: 2 months after quarter ends
+Final release: 3 months after quarter ends
+
+Now we will try to used unrevised, higher frequency data to improve predictions of current GDP.
