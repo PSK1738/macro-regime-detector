@@ -50,4 +50,4 @@ Advance release: 1 month after quarter ends
 Revised release: 2 months after quarter ends
 Final release: 3 months after quarter ends
 
-Now we will try to used unrevised, higher frequency data to improve predictions of current GDP.
+Next will try to used unrevised, higher frequency data to improve predictions of current GDP.
