@@ -38,6 +38,7 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 
+
 #Hamilton's recession dates based on GDP-indicator
 nber = fred.get_series('JHDUSRGDPBR')
 nber.index = pd.to_datetime(nber.index)
