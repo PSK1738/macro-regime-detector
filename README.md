@@ -13,4 +13,4 @@ categorising US business cycles into 2 states: expansion and recession using FRE
 
 ## Next Steps
 - Time-varying transition probabilities (Filardo 1994) driven by PCA macro indicators
-- End Goal: Test trading strategies & optimal portfolio allocation using the regimes.
+- End Goal: Produce a clean write up of findings and implementation of statistical, econmetric and probabilistic methods. 
