@@ -176,5 +176,37 @@ We transform macro variables to become stationary and use ADF to check there is 
 
 interesting correlation matrix between macro variables in appendix i.e. negative correlation between credit spead and yield curve slope. This matrix ensures we consider potential multicollinearity issues and redundancy.
 
+## 17/06/2026
+
+understanding correlation-based PCA and how we will use it to identify the key macro variable.
+
+First using the Forbes article we will use:
+
+Jobs - Continued Claims (Insured Unemployment) (CCSA) & Initial claims (ICSA) (BOTH WEEKLY)
+
+Credit Spread - Moody's Seasoned Baa Corporate Bond Yield Relative to Yield on 10-Year Treasury Constant Maturity (BAA10Y) (DAILY)
+
+Financial conditions - Chicago Fed National Financial Conditions Index (NFCI) (WEEKLY)
+
+Cyclical stock performance - UNCERTAIN
+
+Yield curve - 10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity (T10Y2Y)
+
+(while PCA isn't really justified for a small number of variable we will add more)
+we must stationarise variables and note that aggregrating data to comparable timeframes is simple but advanced econometric methods exist to smoothen this e.g. Mixed data sampling (MIDAS).
+
+We use a correlation matrix to not concern ourselves with scaling the variables.
+
+for each we need - to first stationarise our variable to get a meaningful correlation (otherwise spurious), then we need to aggregate to monthly.
+
+### Stionarising and aggregating 
+
+- Continued Claims (Insured Unemployment) (CCSA) - people currently recieving unemployment benefits, we will use the monthly average, and is already statistically stationary
+- Initial claims (ICSA) - new filings for unemployment benefits in a week, use monthly avg, is stationary
+- Moody's Seasoned Baa Corporate Bond Yield Relative to Yield on 10-Year Treasury Constant Maturity (BAA10Y)  - take end of month end of month value, already stationary
+- Chicago Fed National Financial Conditions Index (NFCI) - take end of month, already stationary
+
+
+
 
 
