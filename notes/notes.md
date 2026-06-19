@@ -206,6 +206,19 @@ for each we need - to first stationarise our variable to get a meaningful correl
 - Moody's Seasoned Baa Corporate Bond Yield Relative to Yield on 10-Year Treasury Constant Maturity (BAA10Y)  - take end of month end of month value, already stationary
 - Chicago Fed National Financial Conditions Index (NFCI) - take end of month, already stationary
 
+## 19/06/2026
+
+Create a loop to pull data for different macro variables (adding variables included in the paper)
+We will include macro variables:
+
+Consumer Price Index for All Urban Consumers: All Items in U.S. City Average (CPIAUCSL) (monthly, infaltion)
+Industrial Production: Total Index (INDPRO) (monthly, real output)
+3-Month Treasury Bill Secondary Market Rate, Discount Basis (TB3MS) (monthly, eflection of current baseline interest rate)
+Crude Oil Prices: West Texas Intermediate (WTI) - Cushing, Oklahoma (DCOILWTICO) (daily, track global energy markets)
+Capacity Utilization: Total Index (TCU) (monthly, percent of availiable indistrial capacity being used)
+
+
+
 
 
 

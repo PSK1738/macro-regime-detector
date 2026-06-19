@@ -44,3 +44,4 @@ nber = fred.get_series('JHDUSRGDPBR')
 nber.index = pd.to_datetime(nber.index)
 nber.to_csv('data/nber.csv', header=True)
 print(nber.head(20))
+
