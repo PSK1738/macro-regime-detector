@@ -211,15 +211,92 @@ for each we need - to first stationarise our variable to get a meaningful correl
 Create a loop to pull data for different macro variables (adding variables included in the paper)
 We will include macro variables:
 
+Continued Claims (Insured Unemployment) (CCSA) (weekly)
+Initial Claims (ICSA) (weekly)
+Moody's Seasoned Baa Corporate Bond Yield Relative to Yield on 10-Year Treasury Constant Maturity (BAA10Y) (daily)
+Chicago Fed National Financial Conditions Index (NFCI) (weekly)
+10-Year Treasury Constant Maturity Minus 2-Year Treasury Constant Maturity (T10Y2Y) (daily)
+
 Consumer Price Index for All Urban Consumers: All Items in U.S. City Average (CPIAUCSL) (monthly, infaltion)
 Industrial Production: Total Index (INDPRO) (monthly, real output)
 3-Month Treasury Bill Secondary Market Rate, Discount Basis (TB3MS) (monthly, eflection of current baseline interest rate)
 Crude Oil Prices: West Texas Intermediate (WTI) - Cushing, Oklahoma (DCOILWTICO) (daily, track global energy markets)
 Capacity Utilization: Total Index (TCU) (monthly, percent of availiable indistrial capacity being used)
+Unemployment Rate (UNRATE)(monthly)
+University of Michigan: Consumer Sentiment (UMCSENT) (monthly)
+Commercial and Industrial Loans, All Commercial Banks (BUSLOANS) (monthly) 
+Capacity Utilization: Manufacturing (SIC) (CUMFNS) (monthly, capacity utilisation for manufacturing sector)
+M2 (M2SL) (monthly, how much cash and highly liquid funds circulating economy)
+All Employees, Total Nonfarm (PAYEMS) (monthly)
+Producer Price Index by Commodity: All Commodities (PPIACO) (monthly)
 
 
+KEY: Common sample starts 1986-02 due to WTI/BAA10Y FRED history; this still spans 5 major macro-financial regime episodes.
+
+## 22/06/2026 - PCA + Key correlations
+
+Now we have completed the correlation matrix of macro variables, understand PCA.
+
+For reference ENSAE PCs following PCA (Gemini Summary):
+
+    🛠️ PC1: Industrial Activity Indicators
+    Log_INDPRO_diff (Industrial Production): High Positive
+    TCU_diff (Capacity Utilization): High Positive
+    Log_PAYEMS_diff (Total Nonfarm Payroll Employment): High Positive
+    UNRATE_diff (Unemployment Rate): High Negative
 
 
+    🎈 PC2: Inflation Dynamics
 
+    Log_CPI_diff (Consumer Price Index): High Positive
+    Log_PPIACO_diff (Producer Price Index): High Positive
+    WTI_Returns (Crude Oil Prices): High Positive
+
+
+    🏦 PC3: Monetary & Financial Conditions
+
+    NFCI (National Financial Conditions Index): High Positive
+    Credit_spread: High Positive
+    Slope (Yield Curve Slope): Moderate Negative
+    TB3MS_diff (3-Month Treasury Bill Rate): Moderate Positive
+
+
+    💸 PC4: Supply Shocks & Liquidity Contraction
+
+    Log_PPIACO_diff (Producer Price Index): +0.55
+    Log_M2SL_diff (M2 Money Supply): -0.55
+    Log_BUSLOANS_diff (Commercial & Industrial Loans): -0.31
+
+
+    🎭 PC5: Consumer Confidence & Short-Term Policy Shocks
+    
+    UMCSENT_diff (University of Michigan Consumer Sentiment): +0.68
+    TB3MS_diff (3-Month Treasury Bill Rate): +0.53
+
+
+    📈 PC6: Yield Curve Steepening & Market Sentiment
+    
+    UMCSENT_diff (University of Michigan Consumer Sentiment): +0.50
+    Log_PPIACO_diff (Producer Price Index): +0.43
+    Slope (Yield Curve Slope): +0.41
+    TB3MS_diff (3-Month Treasury Bill Rate): -0.40
+
+
+    📉 PC7: Corporate Profit Margin Compression
+    Log_PPIACO_diff (Producer Price Index): +0.54
+    Log_CPI_diff (Consumer Price Index): -0.47
+    Slope (Yield Curve Slope): -0.31
+    Log_PAYEMS_diff (Total Nonfarm Payroll Employment): -0.28
+
+Made good progress, see Macro_variables_stationarity_correlation notebook.
+
+Next: Go through PCA theory and run PCA if possible
+
+## 24/06/2026
+
+Including COVID 
+Conduct the PCA and determine what each componenet signifies. We observe under Kaiser's rule (taking PC's with e-values larger than 1) we would use PC1 - PC5. However PC1 - PC6 captures 80.01% of the variance.
+
+Before deciding I will analyse the PC's to determine if each represent an "economic story". See findings of notebook for analysis of componenets.
 
 
