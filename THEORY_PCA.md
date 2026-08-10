@@ -4,7 +4,7 @@ We currently have 17 macro indicators. We will use PCA to compress these into a 
 
 PC1​=w1​⋅Continued_claims+w2​⋅Initial_claims+⋯+w17​⋅Log_PPIACO_diff
 
-We use our correlation matrix (which yields the same results and Z-score standardising to form a variance-covariance matrix) for the PCA. 
+We use our correlation matrix (which yields the same results as Z-score standardising to form a variance-covariance matrix) for the PCA. 
 
 PCA is the eigendecomposition of the correlation matrix. 
 
@@ -17,7 +17,7 @@ We wish to find the e-vector v, where v=(w1​,…,w17​)^T , s.t. we form z wi
  z = w1​x1 ​+ ⋯ + w17​x17 subject to w1^2 ​+ w2^2 ​+ ⋯ + w17^2​ = 1
 
  Derivation:
-x is our vector of macro variables, R is our cov matrix (which is equal to the correlation as we would standardise)
+x is our vector of macro variables, R is our cov matrix (which is equal to the correlation matrix as we would standardise)
  Variance of z= v^T x  ==> Var(z) =  v^T R v
 
  Therefore we max v^T R v subject to vT v = 1

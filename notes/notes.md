@@ -299,4 +299,85 @@ Conduct the PCA and determine what each componenet signifies. We observe under K
 
 Before deciding I will analyse the PC's to determine if each represent an "economic story". See findings of notebook for analysis of componenets.
 
+## 09/08/2026 - Roadmap (finished internship now)
 
+Refresher:
+
+The original paper aims to observe the equity-bond correlation using different macroeconomic/financial regimes.
+
+The main goal of this project is to identify the macro-economic regimes and only offer a dynamic allocation investment strategy after. 
+
+Key notes from the paper: 
+
+Market regimes offer a good insight however provide no real information about why the regime changes.
+The HMM with TVTP model does perform well i.e. use market data with TVTP dependent on macro data.
+Interestingly only 3 simple macro variables are used update the TVTP.
+
+Understand the theory behind regime validation, Dirichlet prior and 
+
+
+### Roadmap:
+
+- Complete regime validation, Dirichlet prior and setting k-means parameters. 
+- Complete the time-invariant tranistion probabilities HMM using PC1-PC7
+- Extend to TVTP and use few macro-indicators. Select these ensuring they obtain large weighting in our PCs and so that align with the different regimes.
+
+# 10/08/2026
+
+-Completed regime validation theory
+
+Now we can't use PCs as the observed data for the regimes as the normal distribution of each under a given regime will be almost impossible to interpret
+
+-Claude code prompts
+
+Continuing notebooks/5-Pure_Macro_HMM.ipynb. Data prep is done — `observations` is a
+(T, 8) numpy array, columns in EMISSION_COLS order, full sample including COVID.
+
+This step: fit the HMM across a range of candidate K values and compute AIC/BIC for
+each, to inform K selection. Do NOT run any validation checks yet (no stability,
+persistence, or conviction scoring) — that comes in a later step, only for whichever K
+candidates look plausible after this AIC/BIC pass.
+
+Using hmmlearn.hmm.GaussianHMM. For each K in [2, 3, 4, 5]:
+
+1. K-Means initialisation
+   - Run sklearn.cluster.KMeans(n_clusters=K, n_init=10) on `observations` to get initial
+     cluster centers, use these as the initial means for the HMM fit.
+   - Note: K-Means only gives initial means, not covariances or transition probabilities.
+     Check hmmlearn's actual API for the correct way to supply initial means while
+     letting the rest initialise normally (don't assume a method name) and explain what
+     you did in a markdown cell.
+
+2. Sticky Dirichlet prior
+   - hmmlearn has no built-in "sticky" transition option. Hand-construct a transmat_prior
+     matrix of shape (K, K): off-diagonal entries = alpha = 1.0, diagonal entries =
+     alpha + kappa = 6.0 (mirrors the ENSAE paper's alpha_k = alpha*1 + kappa*e_k
+     construction, alpha=1.0, kappa=5.0 — built into `ssm` natively there, hand-built
+     here since hmmlearn has no equivalent).
+   - Pass this into GaussianHMM's transmat_prior argument.
+
+3. Fit with 10 restarts
+   - Repeat steps 1-2 ten times per K (fresh K-Means run each time), fit a full HMM each
+     time, keep whichever of the 10 runs has the highest final log-likelihood for that K.
+   - Confirm whether an outer restart loop is needed on top of KMeans's own n_init=10, or
+     if that already handles restart diversity sufficiently — explain your reasoning in
+     a markdown cell.
+
+4. Compute AIC and BIC for each K's best fit
+   - AIC = 2p - 2*ln(L), BIC = p*ln(n) - 2*ln(L), where L is the fitted model's
+     log-likelihood, n = number of observations (T), and p = number of free parameters.
+   - For a Gaussian HMM with K states and D=8 dimensions: p = (K-1) [initial state probs]
+     + K*(K-1) [transition matrix, off-diagonal freedom, since each row sums to 1] +
+     K*D [means] + K*D*(D+1)/2 [full covariance matrices, symmetric]. Show this parameter
+     count calculation explicitly in a markdown cell or printed output for each K, don't
+     just hardcode a number — I want to see the breakdown.
+
+5. Summarise and plot
+   - Print a table: K, log-likelihood, AIC, BIC, for each candidate K.
+   - Plot AIC and BIC against K on the same chart (two lines, log-likelihood on a
+     secondary axis optional) so the trend is visible.
+   - Add a markdown cell noting where AIC and BIC agree/disagree, and which K values look
+     like reasonable candidates to carry forward into validation — but do NOT make a
+     final K decision yet, that happens after the validation step in a later prompt.
+
+Stop after step 5. Show me the AIC/BIC table and plot before we proceed to validation.

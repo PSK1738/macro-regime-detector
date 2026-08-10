@@ -1,16 +1,41 @@
 # Macro Regime Detector
 
-Implementation of Hamilton's (1989) two-state Hidden Markov Model in Python, 
-categorising US business cycles into 2 states: expansion and recession using FRED API data.
+Key topic I'll be studying in my MSc Statistics programme. Not trying to produce a paper here, just exploring, understanding, and modifying the approach myself.
 
-**Status: In Progress**
+Implementation of Hamilton's (1989) two-state Hidden Markov Model in Python, categorising US business cycles into expansion and recession using FRED API data.
 
-## Content
-- `notebooks/` — main project: forward filter, NBER data (for now...)
-- `ENSAE_paper_exploration/` — exploration of equity-bond correlation regimes, to include Principal component analysis on macro indicators and ADF stationarity testing
-- `notes/` — thought process throughout the project
-- `theory/` — key algorithms and mathematical derivations
+## Overview
 
-## Next Steps
-- Time-varying transition probabilities (Filardo 1994) driven by PCA macro indicators
-- End Goal: Test trading strategies & optimal portfolio allocation using the regimes.
+Built a forward filter from scratch based on Hamilton (1989) to pull latent economic regimes out of macro indicators. Started as a 2-regime univariate model, extended to a full multivariate version, then extended again with a Time-Varying Transition Probability (TVTP) model, where transitions between regimes depend on macro covariates instead of being fixed.
+
+No market or asset data here, no allocation, no trading. Kept the scope to regime detection.
+
+## Methodology
+
+1. **Univariate Hamilton filter** — implemented the 2-regime forward filter using GDP data , checked against NBER recession dating.
+2. **Multivariate extension** — 17 macro indicators from FRED, stationarised and ADF-tested.
+3. **PCA** — explored correlation structure, reduced dimensionality, ran on the full sample and with COVID excluded
+4. **Pure macroeconomic HMM** — multivariate Gaussian-emission HMM on the macro indicators (or their PCs), K picked via AIC/BIC, checked with numerical stability, transition significance, and persistence.
+5. **HMM-TVTP** — transition probabilities as a softmax function of macro covariates, generalised EM, M-step solved numerically since it has no closed form.
+
+## Structure
+
+ENSAE_paper_exploration/
+├── 1-Macro_Variables_trial.ipynb
+├── 2-Macro_Variables_Stationarity_Correlation.ipynb
+├── 3-Full_Sample_PCA.ipynb
+├── 4-PCA_excl_COVID.ipynb
+├── 5-Pure_Macro_HMM.ipynb
+└── 6-TVTP_Macro_HMM.ipynb
+
+notes/
+└── notes.md # working notes, kept informal
+
+THEORY_Hamilton.md # derivation notes, forward filter
+THEORY_PCA.md # PCA derivation and interpretation
+THEORY_Regime_Validation.md # stability, transition significance, persistence checks
+THEORY_TVTP.md # TVTP derivation and estimation
+
+## Acknowledgements
+
+ENSAE Paris applied statistics project by Benisti, Haddadi, Memet, and Thinot (2025-2026) on equity-bond correlation regimes for the project inspiration. 
