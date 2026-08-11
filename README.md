@@ -12,28 +12,38 @@ No market or asset data here, no allocation, no trading. Kept the scope to regim
 
 ## Methodology
 
-1. **Univariate Hamilton filter** — implemented the 2-regime forward filter using GDP data , checked against NBER recession dating.
+1. **Univariate Hamilton filter** — implemented the 2-regime forward filter using GDP data, checked against NBER recession dating.
 2. **Multivariate extension** — 17 macro indicators from FRED, stationarised and ADF-tested.
 3. **PCA** — explored correlation structure, reduced dimensionality, ran on the full sample and with COVID excluded
-4. **Pure macroeconomic HMM** — multivariate Gaussian-emission HMM on the macro indicators (or their PCs), K picked via AIC/BIC, checked with numerical stability, transition significance, and persistence.
-5. **HMM-TVTP** — transition probabilities as a softmax function of macro covariates, generalised EM, M-step solved numerically since it has no closed form.
+4. **Pure macroeconomic HMM** — multivariate Gaussian-emission HMM using 7 macro indicators, number of regimes selected using AIC/BIC and economic intuition, checked with numerical stability, comparison of empirical results to theoretical stationary distribution , and Shannon entropy.
+5. **HMM-TVTP** — transition probabilities exploration, use smm, credit spread and continued claims as inputs, z-score normalise & 2 month lag, initial weightings estimated using logistic regression, omit COVID single data point for calculation
 
 ## Structure
 
 ENSAE_paper_exploration/
+
 ├── 1-Macro_Variables_trial.ipynb
+
 ├── 2-Macro_Variables_Stationarity_Correlation.ipynb
+
 ├── 3-Full_Sample_PCA.ipynb
+
 ├── 4-PCA_excl_COVID.ipynb
+
 ├── 5-Pure_Macro_HMM.ipynb
+
 └── 6-TVTP_Macro_HMM.ipynb
 
 notes/
+
 └── notes.md # working notes, kept informal
 
 THEORY_Hamilton.md # derivation notes, forward filter
+
 THEORY_PCA.md # PCA derivation and interpretation
+
 THEORY_Regime_Validation.md # stability, transition significance, persistence checks
+
 THEORY_TVTP.md # TVTP derivation and estimation
 
 ## Acknowledgements
